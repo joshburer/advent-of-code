@@ -1,5 +1,5 @@
 def main(part=1):
-    with open('day2.txt', "r") as f:
+    with open('2022/day02/input.txt', "r") as f:
         text = f.read()
 
     lines = text.splitlines()

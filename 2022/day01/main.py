@@ -1,5 +1,5 @@
 def main():
-    with open("day1.txt", "r") as f:
+    with open("2022/day01/input.txt", "r") as f:
         text = f.read()
 
     elves = [0]
