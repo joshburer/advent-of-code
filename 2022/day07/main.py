@@ -10,7 +10,9 @@ class FS:
             self.curr_loc = "/"
         elif path == "..":
             # Go up a directory.
-            self.curr_loc = self.curr_loc[:self.curr_loc.rfind("/", 0, self.curr_loc.rfind("/")) + 1]
+            # Some overcomplicated mess to trim to the second-to-last /
+            slash_idx = self.curr_loc.rfind("/", 0, self.curr_loc.rfind("/"))
+            self.curr_loc = self.curr_loc[:slash_idx + 1]
         else:
             self.curr_loc += f"{path}/"
 
@@ -32,7 +34,11 @@ class FS:
         self.filesystem[self.curr_loc] = files
 
     def get_size_of_dir(self, path) -> int:
-        """Recursively get the size of a given directory."""
+        """Recursively get the size of a given directory.
+
+        Depends on all items in a given path being either
+        ints that are sizes of files, OR strings that correspond to directories.
+        """
         total = 0
         dir = self.filesystem.get(path)
 
@@ -55,8 +61,8 @@ def main():
     # Using this, we will be able to look forward and see when the next command happens,
     # which is useful in the case of `ls`, as commands are broken up by output.
     command_lines = [
-        (index, line.replace('$ ', "")) 
-        for index, line in enumerate(lines) 
+        (index, line.replace('$ ', ""))
+        for index, line in enumerate(lines)
         if line.startswith("$")
     ]
 
@@ -64,6 +70,7 @@ def main():
 
     for idx, (original_idx, command) in enumerate(command_lines):
         command = command.split(' ')
+
         if command[0] == 'cd':
             fs.cd(command[1])
         elif command[0] == 'ls':
@@ -87,5 +94,4 @@ def main():
     print(f"Smallest directory size to clear enough space for an update: {size_of_smallest}")
 
 if __name__ == "__main__":
-    for i in range(1000):
-        main()
+    main()
