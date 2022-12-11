@@ -1,3 +1,6 @@
+from year2022.utils import get_lines
+
+
 class FS:
     """Class to keep track of state when navigating through directories"""
 
@@ -16,13 +19,12 @@ class FS:
         else:
             self.curr_loc += f"{path}/"
 
-
     def ls(self, list_o_files: list[str]):
         """Take a list of files and add them to the current location as tracked in the filesystem.
 
         Cleans out filenames and just keeps the sizes. Leaves directories as strings.
         """
-        files: list[str, int] = []
+        files: list[str | int] = []
         for line in list_o_files:
             args = line.split(' ')
             if args[0] == "dir":
@@ -52,10 +54,7 @@ class FS:
 
 
 def main():
-    with open('input.txt', 'r') as f:
-        lines = f.readlines()
-
-    lines = [line.replace("\n", "") for line in lines]
+    lines = get_lines(__file__)
 
     # Get all lines that are considered commands, and track their original index.
     # Using this, we will be able to look forward and see when the next command happens,
@@ -92,6 +91,7 @@ def main():
 
     size_of_smallest = min([size for size in dir_sizes if size >= needed - (total_space - total_size)])
     print(f"Smallest directory size to clear enough space for an update: {size_of_smallest}")
+
 
 if __name__ == "__main__":
     main()

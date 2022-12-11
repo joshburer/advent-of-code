@@ -1,10 +1,12 @@
+from year2022.utils import get_lines
+
+
 def main():
-    with open("2022/day01/input.txt", "r") as f:
-        text = f.read()
+    lines = get_lines(__file__)
 
     elves = [0]
     elf = 0
-    for line in text.splitlines():
+    for line in lines:
         if line.isnumeric():
             elves[elf] += int(line)
         else:

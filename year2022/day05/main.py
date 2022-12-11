@@ -1,6 +1,8 @@
+from year2022.utils import get_lines
+
+
 def main(part=1):
-    with open('input.txt', 'r') as f:
-        lines = [line.replace('\n', '') for line in f.readlines()]
+    lines = get_lines(__file__)
 
     # Extract numbers from lines.
     number_lines = []
@@ -8,7 +10,7 @@ def main(part=1):
         numbers = [int(x) for x in filter(lambda x: bool(x), line.split(' ')) if x.isnumeric()]
         if numbers:
             number_lines.append((idx, numbers))
-    
+
     # The first line with numbers enumerates the stacks.
     number_line_idx, number_line =  number_lines[0]
     stack_count = len(number_line)
@@ -38,8 +40,9 @@ def main(part=1):
         else:
             to_stack += from_stack[-move_count:]
             from_stack[::] = from_stack[:-move_count]
-    
+
     print("".join([stack[-1] for stack in stacks]))
+
 
 if __name__ == "__main__":
     main()

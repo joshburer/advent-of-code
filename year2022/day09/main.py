@@ -1,4 +1,7 @@
-def get_distance(a: tuple[int,int], b: tuple[int, int]) -> tuple[int, int]:
+from year2022.utils import get_lines
+
+
+def get_distance(a: tuple[int, int], b: tuple[int, int]) -> tuple[int, int]:
     dist_x = a[0] - b[0]
     dist_y = a[1] - b[1]
     return dist_x, dist_y
@@ -17,32 +20,35 @@ def get_tail_pos(head_pos, tail_pos) -> tuple[int, int]:
 
     return tail_pos
 
+
 def main(part=1):
-    with open('day09/input.txt', 'r') as f:
-        lines = f.readlines()
+    lines = get_lines(__file__)
+
     rope_count = 2 if part == 1 else 10
     positions = [(0, 0)] * rope_count
     visited = {positions[-1]}
 
     for line in lines:
-        dir, units = line.split(' ')
+        direction, units = line.split(' ')
         units = int(units)
         for i in range(units):
-            if dir == "U":
+            if direction == "U":
                 positions[0] = positions[0][0], positions[0][1] + 1
-            if dir == "D":
+            if direction == "D":
                 positions[0] = positions[0][0], positions[0][1] - 1
-            if dir == "R":
+            if direction == "R":
                 positions[0] = positions[0][0] + 1, positions[0][1]
-            if dir == "L":
+            if direction == "L":
                 positions[0] = positions[0][0] - 1, positions[0][1]
 
-            for i in range(1, len(positions)):
-                positions[i] = get_tail_pos(positions[i-1], positions[i])
+            for j in range(1, len(positions)):
+                positions[j] = get_tail_pos(positions[j-1], positions[j])
 
             visited.add(positions[-1])
 
     print(f"Total visited: {len(visited)}")
 
+
 if __name__ == "__main__":
+    main()
     main(part=2)

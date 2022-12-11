@@ -1,6 +1,8 @@
+from year2022.utils import get_lines
+
+
 def main():
-    with open("day08/input.txt", "r") as f:
-        lines = list(map(lambda x: x.replace('\n', ''), f.readlines()))
+    lines = get_lines(__file__)
 
     trees = [[  # Up,    Down,  Left,  Right
         (int(l), [False, False, False, False]) for l in line
@@ -48,6 +50,7 @@ def main():
                 curr[1][3] = True
 
     print(sum([sum([1 for col in row if any(col[1])]) for row in trees]))
+
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,8 @@
+from year2022.utils import get_lines
+
+
 def main(part=1):
-    with open('input.txt', 'r') as f:
-        lines = [line.replace("\n", "") for line in f.readlines()]
+    lines = get_lines(__file__)
     pairs = [[[int(y) for y in x.split('-')] for x in line.split(',')] for line in lines]
 
     total = 0
@@ -16,6 +18,7 @@ def main(part=1):
             if len(first.intersection(second)):
                 total += 1
     print(total)
+
 
 if __name__ == "__main__":
     main()

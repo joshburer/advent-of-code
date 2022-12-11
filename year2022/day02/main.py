@@ -1,8 +1,8 @@
-def main(part=1):
-    with open('2022/day02/input.txt', "r") as f:
-        text = f.read()
+from year2022.utils import get_lines
 
-    lines = text.splitlines()
+
+def main(part=1):
+    lines = get_lines(__file__)
 
     # Dict matching my moves to ABC moves
     to_ABC = {
@@ -42,7 +42,6 @@ def main(part=1):
                 my_move = opponent_move
             else:
                 my_move = move_to_beat[opponent_move]
-
 
         # Compute the score.
         my_score = shape_scores[my_move]

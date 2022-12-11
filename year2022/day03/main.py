@@ -1,8 +1,8 @@
-def main(part=1):
-    with open("2022/day03/input.txt", "r") as f:
-        lines = f.readlines()
+from year2022.utils import get_lines
 
-    lines = [line.replace('\n', '') for line in lines]
+
+def main(part=1):
+    lines = get_lines(__file__)
 
     def char_to_priority(char: str) -> int:
         """Convert a single character to the corresponding value:
